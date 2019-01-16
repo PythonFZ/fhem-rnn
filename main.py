@@ -95,6 +95,7 @@ class getData:
         self.df.to_csv(f'df/{self.myList[0][0]}-{self.myList[0][1]}.csv', sep=';', decimal=',')
 
 class prepareData:
+  
     def __init__(self, df):
         self.df = df
 
@@ -135,6 +136,7 @@ class prepareData:
         self.df = (self.df - self.df.mean(axis=0)) / self.df.std(axis=0)   #Z-Transformation/Normalisierung
 
 class rnn_analyse:
+  
     def __init__(self, df, size):
         self.df = np.array(df)
         self.size = size
@@ -239,6 +241,7 @@ class rnn_analyse:
                 print(f'Wahrscheinlichkeit für {action[0]} mit {action[1]} = {action[2]} ist {(pred[-1][line - 1]) * 100:.3f} %')
 
 class fhemConnect:
+  
     def __init__(self, ip, telnetport):
         self.host = ip
         self.port = telnetport
@@ -295,11 +298,11 @@ rnn.myModel.summary()
 rnn.compile_model()
 
 ## Uncommenct when running and training a new model
-# rnn.run_model()
-# rnn.save_model('test_01')
+rnn.run_model()
+rnn.save_model('test_01')
 
 ## Uncomment when loading an allready trained model
-rnn.load_model('test_01')
+# rnn.load_model('test_01')
 
 # analyse the current data and predict next values
 rnn.gen_analyse_current(dev_bin_prep.tok_lst)
@@ -310,15 +313,15 @@ rnn.print_current()
 
 
 ## Uncomment, if you want to run the predicted command on your fhem instance.
-fhem = fhemConnect(IP, telnetport)
-if rnn.curr_action[1] == 'state':
-    set_string = f"set {rnn.curr_action[0]} {rnn.curr_action[2]}"
-else:
-    set_string = f"set {rnn.curr_action[0]} {rnn.curr_action[1]} {rnn.curr_action[2]}"
-print(set_string)
-fhem.execFhem(set_string)
+#fhem = fhemConnect(IP, telnetport)
+#if rnn.curr_action[1] == 'state':
+#    set_string = f"set {rnn.curr_action[0]} {rnn.curr_action[2]}"
+#else:
+#    set_string = f"set {rnn.curr_action[0]} {rnn.curr_action[1]} {rnn.curr_action[2]}"
+#print(set_string)
+#fhem.execFhem(set_string)
 
 ## Uncomment to evaluate the accuracy of your model.
 
-loss, acc = rnn.myModel.evaluate(rnn.test_x, rnn.test_y)
-print(f'Durschnittliche Genauigkeit liegt bei {acc*100:.2f} %')
+#loss, acc = rnn.myModel.evaluate(rnn.test_x, rnn.test_y)
+#print(f'Durschnittliche Genauigkeit liegt bei {acc*100:.2f} %')
