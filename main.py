@@ -308,7 +308,7 @@ rnn.save_model('test_01')
 rnn.gen_analyse_current(dev_bin_prep.tok_lst)
 
 # print out the last n values used for the prediction
-print("Basierend auf den vorrangegangen Werten:")
+print("Basierend auf den vorangegangen Werten:")
 rnn.print_current()
 
 
